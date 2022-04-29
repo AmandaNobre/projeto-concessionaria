@@ -1,6 +1,5 @@
 import { parse } from 'csv-parse';
 import { createReadStream } from 'fs';
-import { convertTypeAcquisitionFromJson } from 'typescript';
 import { CategoriasRepositorio } from '../../repositories/CategoriasRepositorio';
 
 interface IImportCategorias {

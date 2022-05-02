@@ -2,8 +2,12 @@ import { EspecificacoesRepositorio } from "../../repositories/EspecificacoesRepo
 import { ListEspecificacoesControler } from "./ListEspecificacoesControler";
 import { ListEspecificacoesUseCase } from "./ListEspecificacoesUseCase";
 
-const especificacoesRepositorio = EspecificacoesRepositorio.getInstance()
-const listEspecificacoesUseCase = new ListEspecificacoesUseCase(especificacoesRepositorio)
-const listEspecificacoesControler = new ListEspecificacoesControler(listEspecificacoesUseCase)
 
-export { listEspecificacoesControler }
+export default (): ListEspecificacoesControler => {
+
+    const especificacoesRepositorio = new EspecificacoesRepositorio()
+    const listEspecificacoesUseCase = new ListEspecificacoesUseCase(especificacoesRepositorio)
+    const listEspecificacoesControler = new ListEspecificacoesControler(listEspecificacoesUseCase)
+
+    return listEspecificacoesControler
+}

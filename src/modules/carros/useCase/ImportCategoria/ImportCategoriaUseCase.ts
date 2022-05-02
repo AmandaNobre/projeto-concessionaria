@@ -3,8 +3,8 @@ import { createReadStream } from 'fs';
 import { CategoriasRepositorio } from '../../repositories/CategoriasRepositorio';
 
 interface IImportCategorias {
-    nome: string;
-    descricao: string
+    name: string;
+    description: string
 }
 
 class ImportCategoriaUseCase {
@@ -21,10 +21,10 @@ class ImportCategoriaUseCase {
             stream.pipe(parseFile)
 
             parseFile.on("data", async (line) => {
-                const [nome, descricao] = line
+                const [name, description] = line
 
                 categorias.push({
-                    nome, descricao
+                    name, description
                 })
             })
                 .on("end", () => {
@@ -40,12 +40,12 @@ class ImportCategoriaUseCase {
         const categorias = await this.load(file)
 
         categorias.map(categoria => {
-            const { nome, descricao } = categoria;
+            const { name, description } = categoria;
 
-            const exist = this.categoriaRepositorio.findByName(nome)
+            const exist = this.categoriaRepositorio.findByName(name)
 
             if (!exist) {
-                this.categoriaRepositorio.create({ nome, descricao })
+                this.categoriaRepositorio.create({ name, description })
             }
         })
     }

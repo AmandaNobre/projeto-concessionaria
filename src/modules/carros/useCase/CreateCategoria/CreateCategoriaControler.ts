@@ -5,10 +5,10 @@ class CreateCategoriaControler {
 
     constructor(private createCategoriaUseCase: CreateCategoriaUseCase) { }
 
-    handle(request: Request, response: Response): Response {
-        const { nome, descricao } = request.body
+    async handle(request: Request, response: Response): Promise<Response<any, Record<string, any>>> {
+        const { name, description } = request.body
 
-        this.createCategoriaUseCase.execute({ nome, descricao })
+        await this.createCategoriaUseCase.execute({ name, description })
 
         return response.status(201).send()
     }

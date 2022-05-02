@@ -1,36 +1,30 @@
-import { Especificacoes } from "../model/Especificacao";
+import { DataSource, Repository } from "typeorm";
+import { AppDataSource } from "../../../database/dataSource";
+import { Especificacoes } from "../../../database/entities/Especificacao";
 import { IEspecificacoesDTO, IEspecificacoesRepository } from "./interfaces/IEspecificacoesRepository";
 
 class EspecificacoesRepositorio implements IEspecificacoesRepository {
 
-    private especificaoes: Especificacoes[]
-
-    private static INSTANCE: EspecificacoesRepositorio
-
+    private repository: Repository<Especificacoes>
     constructor() {
-        this.especificaoes = []
+        this.repository = AppDataSource.getRepository(Especificacoes)
     }
 
-    public static getInstance(): EspecificacoesRepositorio {
-        if (!EspecificacoesRepositorio.INSTANCE) {
-            EspecificacoesRepositorio.INSTANCE = new EspecificacoesRepositorio()
-        }
+    async create({ name, description }: IEspecificacoesDTO): Promise<void> {
+        const especificacao = this.repository.create({
+            name, description
+        })
 
-        return EspecificacoesRepositorio.INSTANCE
+        await this.repository.save(especificacao)
     }
 
-    create({ nome, descricao }: IEspecificacoesDTO): void {
-        const especificaco = new Especificacoes()
-        Object.assign(especificaco, { nome, descricao, dataCriacao: new Date })
-        this.especificaoes.push(especificaco)
+    async list(): Promise<Especificacoes[]> {
+        const especificacoes = await this.repository.find()
+        return especificacoes
     }
 
-    list(): Especificacoes[] {
-        return this.especificaoes
-    }
-
-    findByName(nome: string): Especificacoes {
-        const especificacao = this.especificaoes.find((especificacoa) => especificacoa.nome === nome)
+    async findByName(name: string): Promise<Especificacoes> {
+        const especificacao = await this.repository.findOne({ where: { name } })
         return especificacao
     }
 }

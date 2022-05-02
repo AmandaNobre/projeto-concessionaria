@@ -1,22 +1,22 @@
 import { ICategoriasRepository } from "../../repositories/interfaces/ICategoriasRepository";
 
 interface IRequest {
-    nome: string;
-    descricao: string
+    name: string;
+    description: string
 }
 
 class CreateCategoriaUseCase {
 
     constructor(private categoriaRepositorio: ICategoriasRepository) { }
 
-    execute({ nome, descricao }: IRequest) {
-        const categoriaExiste = this.categoriaRepositorio.findByName(nome)
+    async execute({ name, description }: IRequest) {
+        const categoriaExiste = await this.categoriaRepositorio.findByName(name)
 
         if (categoriaExiste) {
             throw new Error("Categoria já existente")
         }
 
-        this.categoriaRepositorio.create({ nome, descricao })
+        this.categoriaRepositorio.create({ name, description })
     }
 }
 

@@ -1,11 +1,11 @@
-import { Especificacoes } from "../../model/Especificacao";
+import { Especificacoes } from "../../../../database/entities/Especificacao";
 import { IEspecificacoesRepository } from "../../repositories/interfaces/IEspecificacoesRepository";
 
 class ListEspecificacoesUseCase {
 
     constructor(private especificacoesRepositorio: IEspecificacoesRepository) { }
-    execute(): Especificacoes[] {
-        const list = this.especificacoesRepositorio.list()
+    async execute(): Promise<Especificacoes[]> {
+        const list = await this.especificacoesRepositorio.list()
 
         return list
     }

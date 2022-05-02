@@ -1,14 +1,14 @@
-import { Especificacoes } from "../../model/Especificacao";
+import { Especificacoes } from "../../../../database/entities/Especificacao";
 
 interface IEspecificacoesDTO {
-    nome: string,
-    descricao: string
+    name: string,
+    description: string
 }
 
 interface IEspecificacoesRepository {
-    create({ nome, descricao }: IEspecificacoesDTO): void;
-    list(): Especificacoes[];
-    findByName(nome: string): Especificacoes;
+    create({ name, description }: IEspecificacoesDTO): void;
+    list(): Promise<Especificacoes[]>;
+    findByName(name: string): Promise<Especificacoes>;
 }
 
 export { IEspecificacoesRepository, IEspecificacoesDTO }

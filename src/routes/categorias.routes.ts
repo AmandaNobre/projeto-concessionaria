@@ -1,26 +1,24 @@
 import { Router } from "express"
+
+import { CreateCategoriaControler } from "../modules/carros/useCase/CreateCategoria/CreateCategoriaControler"
+import { ImportCategoriaControler } from "../modules/carros/useCase/ImportCategoria/ImportCategoriaControler"
+import { ListCategoriaControler } from "../modules/carros/useCase/ListCategorias/ListCategoriaControler"
+
 const multer = require('multer')
-
-import createCategoriaControler from "../modules/carros/useCase/CreateCategoria"
-import importCategoriaControler from "../modules/carros/useCase/ImportCategoria"
-import listCategoriaControler from "../modules/carros/useCase/ListCategorias"
-
 const categoriasRoutes = Router()
 
 const upload = multer({
     dest: "./tmp"
 })
 
-categoriasRoutes.post("/", (request, response) => {
-    createCategoriaControler().handle(request, response)
-})
+const createCategoriaControler = new CreateCategoriaControler()
+const listCategoriaControler = new ListCategoriaControler()
+const importCategoriaControler = new ImportCategoriaControler()
 
-categoriasRoutes.get("/", (request, response) => {
-    listCategoriaControler().handle(request, response)
-})
+categoriasRoutes.post("/", createCategoriaControler.handle)
 
-categoriasRoutes.post("/import", upload.single("file"), (request, response) => {
-    importCategoriaControler().handle(request, response)
-})
+categoriasRoutes.get("/", listCategoriaControler.handle)
+
+categoriasRoutes.post("/import", upload.single("file"), importCategoriaControler.handle)
 
 export { categoriasRoutes }

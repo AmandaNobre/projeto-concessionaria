@@ -1,7 +1,8 @@
 import { DataSource } from "typeorm";
-import { Categorias } from "./entities/Categoria";
+
 import { Especificacoes } from "./entities/Especificacao";
-import { CreateCategories } from "./migrations/CreateCategories";
+import { Categorias } from "./entities/Categoria";
+import { Users } from "./entities/Users";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -12,8 +13,7 @@ export const AppDataSource = new DataSource({
     database: "rentx",
     synchronize: true,
     logging: false,
-    entities: [Categorias, Especificacoes],
+    entities: [Categorias, Especificacoes, Users],
     subscribers: [],
-    // migrations: ["./src/atabases/migrations/*.ts"],
-    migrations: [CreateCategories]
+    migrations: [],
 })

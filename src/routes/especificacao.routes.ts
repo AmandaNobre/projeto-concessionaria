@@ -1,16 +1,16 @@
+import "reflect-metadata"
 import { Router } from "express";
 
-import createEspecificacaoControler from "../modules/carros/useCase/CreateEspecificacao";
-import listEspecificacoesControler from "../modules/carros/useCase/ListEspecificacoes";
+import { CreateEspecificacaoControler } from "../modules/carros/useCase/CreateEspecificacao/CreateEspecificacaoControler";
+import { ListEspecificacoesControler } from "../modules/carros/useCase/ListEspecificacoes/ListEspecificacoesControler";
 
 const especificacaoRoutes = Router()
 
-especificacaoRoutes.post("/", (request, response) => {
-    createEspecificacaoControler().handle(request, response)
-})
+const createEspecificacaoControler = new CreateEspecificacaoControler()
+const listEspecificacoesControler = new ListEspecificacoesControler()
 
-especificacaoRoutes.get("/", (request, response) => {
-    listEspecificacoesControler().handle(request, response)
-})
+especificacaoRoutes.post("/", createEspecificacaoControler.handle)
+
+especificacaoRoutes.get("/", listEspecificacoesControler.handle)
 
 export { especificacaoRoutes }

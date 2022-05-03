@@ -1,7 +1,8 @@
-import { DataSource, Repository } from "typeorm";
-import { AppDataSource } from "../../../database/dataSource";
-import { Especificacoes } from "../../../database/entities/Especificacao";
+import { Repository } from "typeorm";
+
 import { IEspecificacoesDTO, IEspecificacoesRepository } from "./interfaces/IEspecificacoesRepository";
+import { Especificacoes } from "../../../database/entities/Especificacao";
+import { AppDataSource } from "../../../database/dataSource";
 
 class EspecificacoesRepositorio implements IEspecificacoesRepository {
 

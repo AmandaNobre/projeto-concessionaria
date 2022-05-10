@@ -12,7 +12,7 @@ export async function EnsureAuth(request: Request, response: Response, next: Nex
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
-        throw new Error("Token missing")
+        return response.status(400).json({ message: "Token não encontrado" }).send()
     }
 
     const [, token] = authHeader.split(" ")
@@ -23,12 +23,12 @@ export async function EnsureAuth(request: Request, response: Response, next: Nex
         const user = await userRepository.findById(id)
 
         if (!user) {
-            throw new Error("Usuário não encontrado")
+            return response.status(400).json({ message: "Usuário não encontrado" }).send()
         }
 
         next()
     } catch {
-        throw new Error("Token inválido")
+        return response.status(400).json({ message: "Token inválido" }).send()
     }
 
 }

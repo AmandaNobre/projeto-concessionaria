@@ -9,9 +9,14 @@ class CreateUserControler {
 
         const createUserrUseCase = container.resolve(CreateUserrUseCase)
 
-        await createUserrUseCase.execute({ name, username, password, email, driver_licence })
+        try {
+            await createUserrUseCase.execute({ name, username, password, email, driver_licence })
 
-        return response.status(201).send()
+            return response.status(201).send()
+        } catch {
+            return response.status(400).json({ message: "Email já cadastrado" }).send()
+
+        }
     }
 }
 

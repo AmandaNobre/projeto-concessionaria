@@ -21,8 +21,8 @@ class CreateEspecificacaoUseCase {
         if (especificacaoExiste) {
             throw new Error("Especificação já existente")
         }
+        this.especificacaoRepositorio.create({ name, description })
 
-        await this.especificacaoRepositorio.create({ name, description })
     }
 }
 

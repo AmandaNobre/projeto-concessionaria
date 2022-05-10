@@ -9,10 +9,14 @@ class CreateEspecificacaoControler {
         const { name, description } = request.body
 
         const createEspecificacaoService = container.resolve(CreateEspecificacaoUseCase)
+        try {
+            await createEspecificacaoService.execute({ name, description })
+            return response.status(201).send()
+        } catch {
+            return response.status(400).json({ message: "Especificação já criada" }).send()
+        }
 
-        await createEspecificacaoService.execute({ name, description })
 
-        return response.status(201).send()
     }
 }
 

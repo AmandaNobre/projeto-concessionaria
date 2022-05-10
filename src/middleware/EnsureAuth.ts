@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { AppError } from "../errors/AppError";
 import { UserRepository } from "../modules/account/repositories/UserRepository";
 
 
@@ -12,7 +13,7 @@ export async function EnsureAuth(request: Request, response: Response, next: Nex
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
-        return response.status(400).json({ message: "Token não encontrado" }).send()
+        throw new AppError("Token não encontrado", 401)
     }
 
     const [, token] = authHeader.split(" ")
@@ -23,12 +24,12 @@ export async function EnsureAuth(request: Request, response: Response, next: Nex
         const user = await userRepository.findById(id)
 
         if (!user) {
-            return response.status(400).json({ message: "Usuário não encontrado" }).send()
+            throw new AppError("Usuário não encontrado", 401)
         }
 
         next()
     } catch {
-        return response.status(400).json({ message: "Token inválido" }).send()
+        throw new AppError("Token inválido", 401)
     }
 
 }

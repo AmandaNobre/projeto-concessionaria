@@ -8,16 +8,10 @@ class AuthUserController {
 
         const createAuthServer = container.resolve(authUserUseCase)
 
-        try {
+        const token = await createAuthServer.execute({ email, password })
 
-            const token = await createAuthServer.execute({ email, password })
+        return response.json(token)
 
-            return response.json(token)
-        } catch {
-            return response.status(400).json({ message: "Email ou senha incorreto" }).send()
-
-
-        }
     }
 }
 

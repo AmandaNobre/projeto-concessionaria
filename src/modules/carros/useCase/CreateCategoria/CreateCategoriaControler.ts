@@ -9,14 +9,10 @@ class CreateCategoriaControler {
         const { name, description } = request.body
 
         const createCategoriaUseCase = container.resolve(CreateCategoriaUseCase);
-        try {
-            await createCategoriaUseCase.execute({ name, description })
+        await createCategoriaUseCase.execute({ name, description })
 
-            return response.status(201).send()
-        } catch {
-            return response.status(400).json({ message: "Categoria Já existente" }).send()
+        return response.status(201).send()
 
-        }
     }
 }
 

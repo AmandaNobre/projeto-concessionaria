@@ -14,8 +14,9 @@ class CreateUserrUseCase {
     async execute({ name, username, password, email, driver_licence }: ICreateUserDTO) {
 
         const emailExists = await this.userRespository.findByEmail(email)
+        console.log('emailExists', emailExists)
 
-        if (!emailExists) {
+        if (emailExists) {
             throw new Error("Email já existe");
         }
         const passwordBash = await hash(password, 8)
@@ -29,7 +30,6 @@ class CreateUserrUseCase {
 
         await this.userRespository.create(user)
     }
-
 }
 
 export { CreateUserrUseCase }

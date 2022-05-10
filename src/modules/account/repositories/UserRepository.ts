@@ -28,6 +28,14 @@ class UserRepository implements IUsersRepository {
         return emailExists
     }
 
+    async findById(id: string) {
+        const user = await this.repository.findOne({
+            where: {
+                id
+            }
+        })
+        return user
+    }
 }
 
 export { UserRepository }

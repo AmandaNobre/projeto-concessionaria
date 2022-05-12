@@ -1,5 +1,5 @@
-import "reflect-metadata"
 import { Router } from "express";
+import "reflect-metadata"
 
 import { CreateEspecificacaoControler } from "../modules/carros/useCase/CreateEspecificacao/CreateEspecificacaoControler";
 import { ListEspecificacoesControler } from "../modules/carros/useCase/ListEspecificacoes/ListEspecificacoesControler";

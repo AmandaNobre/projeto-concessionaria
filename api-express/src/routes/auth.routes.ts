@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { AuthUserController } from "../modules/account/useCase/authUser/authUserController";
 
 const authRoutes = Router()

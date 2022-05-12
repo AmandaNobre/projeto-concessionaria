@@ -1,3 +1,5 @@
+import * as swaggerUi from 'swagger-ui-express';
+import * as bodyParser from 'body-parser';
 import * as express from "express";
 import "express-async-errors"
 
@@ -5,17 +7,17 @@ import { especificacaoRoutes } from "./routes/especificacao.routes";
 import { categoriasRoutes } from "./routes/categorias.routes"
 import { usersRoutes } from "./routes/users.routes";
 import { authRoutes } from "./routes/auth.routes";
+import { AppError } from "./errors/AppError";
 
 import "./shared/container"
 import "./database"
-import { AppError } from "./errors/AppError";
 
-const swaggerUi = require('swagger-ui-express');
+const cors = require('cors')
 const swaggerFile = require('./swaggerUI.json');
-const bodyParser = require('body-parser');
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
@@ -36,4 +38,5 @@ app.use((err: Error, request: express.Request, response: express.Response, next:
         message: "Erro interno"
     })
 })
+
 app.listen(3333)

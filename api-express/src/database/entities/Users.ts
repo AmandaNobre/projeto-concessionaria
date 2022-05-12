@@ -11,16 +11,10 @@ class Users {
     name: string;
 
     @Column()
-    username: string;
-
-    @Column()
     password: string;
 
     @Column()
     email: string;
-
-    @Column()
-    driver_licence: string;
 
     @Column()
     admin: boolean;

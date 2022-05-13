@@ -13,6 +13,7 @@ const Users = () => {
     return (
         <div>
             <Button variant="primary" onClick={() => navigateTo("register-user")} >Cadastrar</Button>
+            <Button variant="primary" onClick={() => navigateTo("login-user")} >Login</Button>
         </div>
     )
 }

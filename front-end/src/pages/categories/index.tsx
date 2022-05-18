@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { Container, Table } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import ICategories from "./interfaces/ICategories"
 import { ServiceCategories } from "./service"
+
 
 const Categories = () => {
 
@@ -21,6 +23,7 @@ const Categories = () => {
     useEffect(() => { findAll() }, [])
 
     return (
+
         <Container>
             <Table responsive>
                 <thead>
@@ -40,7 +43,8 @@ const Categories = () => {
                 </tbody>
             </Table>
         </Container>
+
     )
 }
 
-export { Categories }
+export default Categories

@@ -27,8 +27,8 @@ const LoginUser = () => {
                 password: password
             }
 
-            const { data } = await ServiceUser.login(payload)
-            navigate("/categories")
+            await ServiceUser.login(payload)
+            navigate("/dashboard")
         } catch ({ response }) {
             setError(response)
         } finally {

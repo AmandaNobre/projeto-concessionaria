@@ -1,7 +1,9 @@
-import { Categories } from "./pages/categories"
+import React from "react";
 
-const BasePages = [
-    { path: "/categories", element: < Categories /> }
+const Categories = React.lazy(() => import("./pages/categories"));
+
+const basePages = [
+    { path: "/categories", element: Categories }
 ]
 
-export { BasePages }
+export { basePages }

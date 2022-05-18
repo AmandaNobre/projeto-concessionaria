@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Alert, Button, Form, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import { PageLoginAndCadastro } from "../../../components/pageLoginAndCadastro/pageLoginAndCadastro"
 
-import { PageLoginAndCadastro } from "../../components/pageLoginAndCadastro/pageLoginAndCadastro"
 import IUserRegister from "../interfaces/IUserRegister"
 
 import ServiceUser from "../service"

@@ -6,7 +6,7 @@ import { Alert, Button, Form, Spinner } from "react-bootstrap"
 import ILogin from "../interfaces/ILogin"
 
 import ServiceUser from "../service"
-import { PageLoginAndCadastro } from "../../components/pageLoginAndCadastro/pageLoginAndCadastro"
+import { PageLoginAndCadastro } from "../../../components/pageLoginAndCadastro/pageLoginAndCadastro"
 
 const LoginUser = () => {
 

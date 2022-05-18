@@ -26,6 +26,11 @@ class authUserUseCase {
     ) { }
 
     async execute({ email, password }: IReqest): Promise<IResponse> {
+
+        if (!email || !password) {
+            throw new AppError("Preencha os campos obrigatórios", 401)
+        }
+
         const user = await this.userRepository.findByEmail(email)
 
         if (!user) {

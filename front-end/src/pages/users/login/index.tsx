@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { Button, Form } from "react-bootstrap"
+import { Alert, Button, Form, Spinner } from "react-bootstrap"
 
 import ILogin from "../interfaces/ILogin"
 
@@ -13,9 +13,14 @@ const LoginUser = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
+    const [error, setError] = useState<any>("")
+    const [loading, setLoading] = useState<boolean>(false)
+
     const navigate = useNavigate()
 
     async function login() {
+        setError("")
+        setLoading(true)
         try {
             const payload: ILogin = {
                 email: email,
@@ -24,24 +29,32 @@ const LoginUser = () => {
 
             const { data } = await ServiceUser.login(payload)
             navigate("/categories")
-            console.log('data.user', data.user)
-        } catch (error) {
-            console.log('error', error)
+        } catch ({ response }) {
+            setError(response)
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
         <PageLoginAndCadastro>
             <Form.Group className="w-100">
+                {error !== "" && (
+                    <Alert key="danger" variant="danger">
+                        {error?.data.message}
+                    </Alert>
+                )}
                 <div>
-                    <Form.Label>Email: </Form.Label>
-                    <Form.Control type="text" value={email} onChange={event => setEmail(event.target.value)} />
+                    <Form.Label>Email* : </Form.Label>
+                    <Form.Control type="text" value={email} onChange={event => setEmail(event.target.value)} required />
                 </div>
-                <div>
-                    <Form.Label>Password: </Form.Label>
-                    <Form.Control type="text" value={password} onChange={event => setPassword(event.target.value)} />
+                <div className="mt-2">
+                    <Form.Label>Password* : </Form.Label>
+                    <Form.Control type="text" value={password} onChange={event => setPassword(event.target.value)} required />
                 </div>
-                <Button onClick={login} className="w-100 mt-4" >Logar</Button>
+                <Button onClick={login} className="w-100 mt-4 mb-2" >
+                    {loading ? (<Spinner animation="border" size="sm" />) : "Logar"}
+                </Button>
                 <p>Ainda não tem cadastro: <a href="/register-user">Cadastrar</a></p>
             </Form.Group>
         </PageLoginAndCadastro>

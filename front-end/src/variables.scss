@@ -2,3 +2,16 @@
     --primary: #18345e;
     --yellow: #F0AB20;
 }
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: var(--yellow);
+    border-color: var(--yellow);
+    background-color: var(--yellow);
+}

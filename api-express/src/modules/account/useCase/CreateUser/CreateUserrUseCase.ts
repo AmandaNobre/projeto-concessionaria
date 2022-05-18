@@ -12,7 +12,11 @@ class CreateUserrUseCase {
         private userRespository: UserRepository
     ) { }
 
-    async execute({ name, username, password, email, driver_licence }: ICreateUserDTO) {
+    async execute({ name, password, email }: ICreateUserDTO) {
+
+        if (!name || !password || !email) {
+            throw new AppError("Forneçaa todos os campos obrigatórios", 401);
+        }
 
         const emailExists = await this.userRespository.findByEmail(email)
 
@@ -22,10 +26,8 @@ class CreateUserrUseCase {
         const passwordBash = await hash(password, 8)
         const user = {
             name,
-            username,
             password: passwordBash,
             email,
-            driver_licence
         }
 
         await this.userRespository.create(user)

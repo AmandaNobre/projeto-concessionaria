@@ -39,12 +39,13 @@ const LoginUser = () => {
     return (
         <PageLoginAndCadastro>
             <Form.Group className="w-100">
+                <h3>Login</h3>
                 {error !== "" && (
                     <Alert key="danger" variant="danger">
                         {error?.data.message}
                     </Alert>
                 )}
-                <div>
+                <div className="mt-5">
                     <Form.Label>Email* : </Form.Label>
                     <Form.Control type="text" value={email} onChange={event => setEmail(event.target.value)} required />
                 </div>

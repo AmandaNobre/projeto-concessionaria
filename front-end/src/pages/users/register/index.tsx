@@ -51,7 +51,8 @@ const RegisterUser = () => {
                         {error?.data.message}
                     </Alert>
                 )}
-                <div className="mt-2">
+                <h3>Cadastro</h3>
+                <div className="mt-5">
                     <Form.Label>Name* : </Form.Label>
                     <Form.Control type="text" value={name} onChange={event => setName(event.target.value)} required />
                 </div>

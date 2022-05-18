@@ -1,8 +1,12 @@
 import { useState } from "react"
-import { Button, Container, Form } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+
+import { Button, Form } from "react-bootstrap"
+
 import ILogin from "../interfaces/ILogin"
+
 import ServiceUser from "../service"
+import { PageLoginAndCadastro } from "../../components/pageLoginAndCadastro/pageLoginAndCadastro"
 
 const LoginUser = () => {
 
@@ -27,8 +31,8 @@ const LoginUser = () => {
     }
 
     return (
-        <Container>
-            <Form.Group>
+        <PageLoginAndCadastro>
+            <Form.Group className="w-100">
                 <div>
                     <Form.Label>Email: </Form.Label>
                     <Form.Control type="text" value={email} onChange={event => setEmail(event.target.value)} />
@@ -37,9 +41,11 @@ const LoginUser = () => {
                     <Form.Label>Password: </Form.Label>
                     <Form.Control type="text" value={password} onChange={event => setPassword(event.target.value)} />
                 </div>
-                <Button variant="primary" onClick={login} >Cadastrar</Button>
+                <Button onClick={login} className="w-100 mt-4" >Logar</Button>
+                <p>Ainda não tem cadastro: <a href="/register-user">Cadastrar</a></p>
             </Form.Group>
-        </Container>
+        </PageLoginAndCadastro>
+
     )
 }
 

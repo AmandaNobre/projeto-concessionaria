@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button, Container, Form } from "react-bootstrap"
+import { PageLoginAndCadastro } from "../../components/pageLoginAndCadastro/pageLoginAndCadastro"
 import IUserRegister from "../interfaces/IUserRegister"
 import ServiceUser from "../service"
 
@@ -24,8 +25,8 @@ const RegisterUser = () => {
     }
 
     return (
-        <Container>
-            <Form.Group>
+        <PageLoginAndCadastro>
+            <Form.Group className="w-100">
                 <div>
                     <Form.Label>Name: </Form.Label>
                     <Form.Control type="text" value={name} onChange={event => setName(event.target.value)} />
@@ -38,10 +39,9 @@ const RegisterUser = () => {
                     <Form.Label>Password: </Form.Label>
                     <Form.Control type="text" value={password} onChange={event => setPassword(event.target.value)} />
                 </div>
-                <Button variant="primary" onClick={register} >Cadastrar</Button>
+                <Button variant="primary" className="mt-4 w-100" onClick={register} >Cadastrar</Button>
             </Form.Group>
-        </Container>
-
+        </PageLoginAndCadastro>
     )
 }
 

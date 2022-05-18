@@ -1,11 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
-import { BasePages } from "./basePages";
+import { Routers } from "./routes/Routes";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <BasePages />
+        <Routers />
       </BrowserRouter>
     </div>
   );

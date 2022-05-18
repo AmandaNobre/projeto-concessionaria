@@ -23,8 +23,7 @@ const Categories = () => {
     useEffect(() => { findAll() }, [])
 
     return (
-
-        <Container>
+        <div className="w-100">
             <Table responsive>
                 <thead>
                     <tr>
@@ -42,7 +41,7 @@ const Categories = () => {
 
                 </tbody>
             </Table>
-        </Container>
+        </div>
 
     )
 }

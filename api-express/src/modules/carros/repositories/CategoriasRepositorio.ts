@@ -21,8 +21,8 @@ class CategoriasRepositorio implements ICategoriasRepository {
         await this.repository.save(category)
     }
 
-    async list(query): Promise<Categorias[]> {
-        const categories = await this.repository.find({ where: query })
+    async list(filter): Promise<Categorias[]> {
+        const categories = await this.repository.find({ where: filter, })
         return categories;
     }
 

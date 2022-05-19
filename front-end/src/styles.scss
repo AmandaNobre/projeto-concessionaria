@@ -1,0 +1,33 @@
+.mr-2 {
+    margin-right: 2rem;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: var(--primary);
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-check:active+.btn-warning:focus,
+.btn-check:checked+.btn-warning:focus,
+.btn-warning.active:focus,
+.btn-warning:active:focus,
+.show>.btn-warning.dropdown-toggle:focus {
+    box-shadow: var(--yellow);
+    border-color: var(--yellow);
+    background-color: var(--yellow);
+}

@@ -7,9 +7,11 @@ class ListCategoriaControler {
 
     async handle(request: Request, response: Response): Promise<Response<any, Record<string, any>>> {
 
+        const { name, description } = request.query;
+
         const categoriaRepositorio = container.resolve(ListCategoriaUseCase)
 
-        const list = await categoriaRepositorio.execute()
+        const list = await categoriaRepositorio.execute({ name, description })
 
         return response.json(list)
     }

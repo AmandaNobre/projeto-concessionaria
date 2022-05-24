@@ -3,8 +3,8 @@ import TCategoryCreateAndEdit from "./interfaces/TCategoryCreateAndEdit";
 import TCategoryCreate from "./interfaces/TCategoryCreateAndEdit";
 
 class ServiceCategories {
-  static findAll() {
-    return api.get("/categorias");
+  static findAll(limit: number, page: number) {
+    return api.get(`/categorias?limit=${limit}&page=${page}`);
   }
 
   static create(data: TCategoryCreate) {

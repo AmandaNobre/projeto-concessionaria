@@ -30,6 +30,7 @@
     "swagger-ui-express": "^4.3.0",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.3.6",
+    "typeorm-pagination": "^2.0.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

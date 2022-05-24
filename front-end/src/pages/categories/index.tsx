@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import Pagination from "@material-ui/lab/Pagination";
 import { Button, Form, Table } from "react-bootstrap";
 import Select from "react-select";
 import ICategories from "./interfaces/ICategories";
@@ -34,10 +36,16 @@ const Categories = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [titleModal, setTitleModal] = useState<string>("");
 
+  const limit = 5;
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  const count = Math.ceil(totalPage / limit);
+
   async function findAll() {
     try {
-      const { data } = await ServiceCategories.findAll();
-      setCategories(data);
+      const { data } = await ServiceCategories.findAll(limit, page);
+      setCategories(data[0]);
+      setTotalPage(data[1].total);
     } catch (error) {
       console.log("error", error);
     }
@@ -79,7 +87,7 @@ const Categories = () => {
 
   useEffect(() => {
     findAll();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     getNamesAndDesciptions();
@@ -127,6 +135,15 @@ const Categories = () => {
           ))}
         </tbody>
       </Table>
+
+      <Pagination
+        count={count}
+        color="primary"
+        page={page}
+        onChange={(event: React.ChangeEvent<unknown>, value: number) =>
+          setPage(value)
+        }
+      />
 
       <ModalRegisterAndEdit
         show={openModal}

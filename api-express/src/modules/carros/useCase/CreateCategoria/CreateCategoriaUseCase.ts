@@ -4,27 +4,30 @@ import { AppError } from "../../../../errors/AppError";
 import { ICategoriasRepository } from "../../repositories/interfaces/ICategoriasRepository";
 
 interface IRequest {
-    name: string;
-    description: string
+  name: string;
+  description: string;
 }
 
 @injectable()
 class CreateCategoriaUseCase {
+  constructor(
+    @inject("CategoriasRepositorio")
+    private categoriaRepositorio: ICategoriasRepository
+  ) {}
 
-    constructor(
-        @inject("CategoriasRepositorio")
-        private categoriaRepositorio: ICategoriasRepository
-    ) { }
+  async execute({ name, description }: IRequest) {
+    const categoriaExiste = await this.categoriaRepositorio.findByName(name);
 
-    async execute({ name, description }: IRequest) {
-        const categoriaExiste = await this.categoriaRepositorio.findByName(name)
-
-        if (categoriaExiste) {
-            throw new AppError("Categoria já existente", 401)
-        }
-
-        this.categoriaRepositorio.create({ name, description })
+    if (!name || !description) {
+      throw new AppError("Preencha todos os campos necessários", 401);
     }
+
+    if (categoriaExiste) {
+      throw new AppError("Categoria já existente", 401);
+    }
+
+    this.categoriaRepositorio.create({ name, description });
+  }
 }
 
-export { CreateCategoriaUseCase }
+export { CreateCategoriaUseCase };

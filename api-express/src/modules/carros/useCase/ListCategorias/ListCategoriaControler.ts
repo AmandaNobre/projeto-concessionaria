@@ -9,12 +9,13 @@ class ListCategoriaControler {
     response: Response
   ): Promise<Response<any, Record<string, any>>> {
     const { name, description } = request.query;
+    const { page, limit } = request.query;
 
     const categoriaRepositorio = container.resolve(ListCategoriaUseCase);
 
-    const list = await categoriaRepositorio.execute({ name });
+    const list = await categoriaRepositorio.execute({ name, page, limit });
 
-    return response.json(list);
+    return response.json(list).header("count", "10");
   }
 }
 

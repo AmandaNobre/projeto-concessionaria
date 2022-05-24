@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import Select from "react-select";
 import ICategories from "./interfaces/ICategories";
+import { ModalRegisterAndEdit } from "./ModalRegisterAndEdit/ModalRegisterAndEdit";
 import { ServiceCategories } from "./service";
 
 type ISelect = {
@@ -14,11 +15,24 @@ type ICategoriesSelect = {
   description: string;
 };
 
+const initialCategorySelecioned = {
+  id: "",
+  dateCreated_at: new Date(),
+  description: "",
+  name: "",
+};
+
 const Categories = () => {
   const [categories, setCategories] = useState<ICategories[]>([]);
+  const [categorySelecioned, setCategorySelecioned] = useState<ICategories>(
+    initialCategorySelecioned
+  );
 
   const [names, setNames] = useState<ISelect[]>([]);
   const [descriptions, setDescriptions] = useState<ISelect[]>([]);
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [titleModal, setTitleModal] = useState<string>("");
 
   async function findAll() {
     try {
@@ -30,7 +44,6 @@ const Categories = () => {
   }
 
   function getNamesAndDesciptions() {
-    console.log("categories", categories);
     if (categories.length > 0) {
       categories.map(
         (e: ICategoriesSelect) => (
@@ -47,6 +60,23 @@ const Categories = () => {
     }
   }
 
+  function cadastrar() {
+    setOpenModal(true);
+    setTitleModal("Cadastrar");
+  }
+
+  function editar(categoriaSelecionada: ICategories) {
+    setOpenModal(true);
+    setTitleModal("Editar");
+    setCategorySelecioned(categoriaSelecionada);
+  }
+
+  function closeModal() {
+    setCategorySelecioned(initialCategorySelecioned);
+    setOpenModal(false);
+    findAll();
+  }
+
   useEffect(() => {
     findAll();
   }, []);
@@ -59,7 +89,7 @@ const Categories = () => {
     <div className="w-100">
       <div className="d-flex justify-content-between mb-5">
         <h3>Categorias</h3>
-        <Button>Adicionar</Button>
+        <Button onClick={cadastrar}>Adicionar</Button>
       </div>
       <Form.Group className="d-flex">
         <div className="w-50 mr-2">
@@ -82,11 +112,13 @@ const Categories = () => {
         </thead>
         <tbody>
           {categories.map((categoria) => (
-            <tr>
+            <tr key={categoria.id}>
               <td>{categoria.name}</td>
               <td>{categoria.description}</td>
               <td>
-                <Button variant="warning">Editar</Button>
+                <Button variant="warning" onClick={() => editar(categoria)}>
+                  Editar
+                </Button>
               </td>
               <td>
                 <Button variant="danger">Excluir</Button>
@@ -95,6 +127,13 @@ const Categories = () => {
           ))}
         </tbody>
       </Table>
+
+      <ModalRegisterAndEdit
+        show={openModal}
+        handleClose={closeModal}
+        title={titleModal}
+        categorySelecioned={categorySelecioned}
+      />
     </div>
   );
 };

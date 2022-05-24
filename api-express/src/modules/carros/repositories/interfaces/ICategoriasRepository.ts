@@ -8,9 +8,11 @@ interface ICategoriaDTO {
 
 interface ICategoriasRepository {
   create({ name, description }: ICategoriaDTO): void;
+
+  list(query): Promise<Categorias[]>;
   findByName(name: string): Promise<Categorias>;
   findById(id: string): Promise<Categorias>;
-  list(query): Promise<Categorias[]>;
+
   edit({ id, name, description }: ICategoriaDTO): void;
 }
 

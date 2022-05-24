@@ -1,14 +1,17 @@
 import { Categorias } from "../../../../database/entities/Categoria";
 
-interface ICreateCategoriaDTO {
-    name: string;
-    description: string
+interface ICategoriaDTO {
+  id?: string;
+  name: string;
+  description: string;
 }
 
 interface ICategoriasRepository {
-    create({ name, description }: ICreateCategoriaDTO): void;
-    list(query): Promise<Categorias[]>;
-    findByName(name: string): Promise<Categorias>
+  create({ name, description }: ICategoriaDTO): void;
+  findByName(name: string): Promise<Categorias>;
+  findById(id: string): Promise<Categorias>;
+  list(query): Promise<Categorias[]>;
+  edit({ id, name, description }: ICategoriaDTO): void;
 }
 
-export { ICategoriasRepository, ICreateCategoriaDTO }
+export { ICategoriasRepository, ICategoriaDTO };
